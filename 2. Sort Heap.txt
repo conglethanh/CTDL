@@ -1,0 +1,38 @@
+void shift(int a[], int left, int right)
+{
+	int i = left;
+	int j = 2 * i;
+	int x = a[i];
+
+	while (j <= right)
+	{
+		if (j < right)
+		{
+			if (a[j] > a[j + 1]) j++;
+		}
+		if (x <= a[j]) break;
+
+		a[i] = a[j];
+		i = j;
+		j = i * 2;
+	}
+	a[i] = x;
+}
+void buildHeap(int a[], int n)
+{
+	int left = n / 2 - 1;
+	while (left >= 0){
+		shift(a, left, n);
+		left--;
+	}
+}
+void heapSort(int a[], int n)
+{
+	buildHeap(a, n);
+	int right = n - 1;
+	while (right > 0){
+		swap(a[0], a[right]);
+		right--;
+		shift(a, 0, right);
+	}
+}

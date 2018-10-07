@@ -1,0 +1,19 @@
+int binarySearch(int A[], int key, int left, int right)
+{
+	if (left > right) // Ğ?u l?n hon cu?i => m?ng không còn cái l? nào d? c?m chìa vào n?a
+		return -1; // => tr? v? -1
+
+	else{
+
+		int mid = (left + right) / 2;
+
+		if (A[mid] == key) // Ki?m tra th?ng ? gi?a
+			return mid;
+
+		if (A[mid] > key) // Khi cái chìa nh? hon cái l?
+			return binarySearch(A, key, left, mid - 1);
+
+		if (A[mid] < key) // khi cái chìa l?n hon cái l?
+			return binarySearch(A, key, mid + 1, right);
+	}
+}

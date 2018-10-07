@@ -1,0 +1,45 @@
+void rSort(int *a, int *b, int l, int r, int k)
+{
+	if (k < 0)return;
+	
+	int *f = new int[11]{ 0 };
+	
+	for (int i = l; i <= r; i++)
+	{
+		f[digit(a[i], k) + 1]++; // !=
+	}
+
+	for (int i = 1; i < 11; i++)
+	{
+		f[i] += f[i - 1];
+	}
+
+	for (int i = l; i <= r; i++)
+	{
+		int j = digit(a[i], k);
+		b[f[j]++] = a[i];
+	}
+
+	for (int i = l; i <= r; i++)
+	{
+		a[i] = b[i - l];
+	}
+	
+	rSort(a, b, l, l + f[0] - 1, k - 1);
+	for (int i = 0; i < 10; i++)
+	{
+		rSort(a, b, l + f[i], l + f[i + 1] - 1, k - 1);
+	}
+
+	delete[] f;
+}
+
+void radixSort(int *a, int n)
+{
+	int max = getMax(a, n);
+	int d = (int)log((double)max) + 1;
+
+	int *b = new int[n];
+	rSort(a, b, 0, n - 1, d - 1);
+	delete[] b;
+}
